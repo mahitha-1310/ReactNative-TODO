@@ -17,9 +17,11 @@ const TaskItem = ({ task, onDelete, onToggleComplete, onToggleFavorites }) => {
           color={task.completed ? "green" : "black"}
         />
       </TouchableOpacity>
+
       <Text style={[styles.title, task.completed && styles.completed]}>
         {task.title}
       </Text>
+
       <Text style={styles.deadline}>{deadLine}</Text>
 
       <TouchableOpacity onPress={onToggleFavorites} style={styles.icon}>
