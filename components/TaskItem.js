@@ -4,7 +4,13 @@ import { useState } from "react";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const TaskItem = ({ task, onDelete, onToggleComplete, onToggleFavorites }) => {
+const TaskItem = ({
+  task,
+  onDelete,
+  onToggleComplete,
+  onToggleFavorites,
+  onEdit,
+}) => {
   // const [tasks, setTasks] = useState([]);
   let deadLine = task.deadline ? task.deadline.toDateString() : "";
   return (
@@ -23,6 +29,10 @@ const TaskItem = ({ task, onDelete, onToggleComplete, onToggleFavorites }) => {
       </Text>
 
       <Text style={styles.deadline}>{deadLine}</Text>
+
+      <TouchableOpacity onPress={onEdit} style={styles.icon}>
+        <Icon name="edit" size={20} color="#000" />
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={onToggleFavorites} style={styles.icon}>
         <Icon

@@ -20,6 +20,7 @@ import {
   toggleFavorites,
   deleteTask,
 } from "../utils/GlobalFunctions";
+import EditTaskModal from "../components/EditTaskModal";
 
 function TasksScreen(props) {
   const { tasks, setGlobalTasks } = useGlobalState();
@@ -27,6 +28,29 @@ function TasksScreen(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   //   const [favoriteTasks, setFavoriteTasks] = useState([]);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const openEditModal = (task) => {
+    setSelectedTask(task);
+    console.log(selectedTask);
+    setEditModalVisible(true);
+    console.log(setEditModalVisible);
+    // console.log("hi");
+  };
+
+  const saveEditedTask = (editedTask) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === editedTask.id ? editedTask : task
+    );
+    setGlobalTasks(updatedTasks);
+    setEditModalVisible(false);
+  };
+
+  // Function to handle canceling edit modal
+  const cancelEditModal = () => {
+    setEditModalVisible(false);
+  };
 
   const addTask = () => {
     if (taskTitle.trim() === "") return;
@@ -151,6 +175,7 @@ function TasksScreen(props) {
                   onToggleFavorites={() =>
                     toggleFavorites(item.id, tasks, setGlobalTasks)
                   }
+                  onEdit={() => openEditModal(item)}
                 />
               )
             }
@@ -167,18 +192,28 @@ function TasksScreen(props) {
               item.completed && (
                 <TaskItem
                   task={item}
-                  onDelete={() => deleteTask(item.id)}
+                  onDelete={() => deleteTask(item.id, tasks, setGlobalTasks)}
                   onToggleComplete={() =>
                     toggleComplete(item.id, tasks, setGlobalTasks)
                   }
                   onToggleFavorites={() =>
                     toggleFavorites(item.id, tasks, setGlobalTasks)
                   }
+                  onEdit={() => openEditModal(item)}
                 />
               )
             }
             keyExtractor={(item) => item.id.toString()}
           />
+          {/* {console.log(selectedTask)} */}
+          {selectedTask && (
+            <EditTaskModal
+              visible={editModalVisible}
+              task={selectedTask}
+              onSave={saveEditedTask}
+              onCancel={cancelEditModal}
+            />
+          )}
         </View>
       </View>
     </ImageBackground>
@@ -211,16 +246,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-
     paddingRight: 10,
     color: "#000",
   },
   clearButton: {
     marginLeft: 10,
   },
-  flatlist: {
-    marginTop: 20,
-  },
+
   heading: {
     marginTop: 20,
     backgroundColor: "rgba(0, 0, 0, 0.80)",

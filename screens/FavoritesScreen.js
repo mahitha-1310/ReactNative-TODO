@@ -37,11 +37,20 @@ function FavoritesScreen(props) {
                 onToggleFavorites={() =>
                   toggleFavorites(item.id, tasks, setGlobalTasks)
                 }
+                onEdit={() => openEditModal(item)}
               />
             )
           }
           keyExtractor={(item) => item.id.toString()}
         />
+        {/* {selectedTask && (
+          <EditTaskModal
+            visible={editModalVisible}
+            task={selectedTask}
+            onSave={saveEditedTask}
+            onCancel={cancelEditModal}
+          />
+        )} */}
       </View>
     </ImageBackground>
   );
