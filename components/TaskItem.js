@@ -11,8 +11,9 @@ const TaskItem = ({
   onToggleFavorites,
   onEdit,
 }) => {
-  // const [tasks, setTasks] = useState([]);
-  let deadLine = task.deadline ? task.deadline.toDateString() : "";
+  // let deadLine = task.deadline ? task.deadline.toDateString() : "";
+  let deadLine = task.deadline ? new Date(task.deadline).toDateString() : "";
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onToggleComplete} style={styles.icon}>
@@ -69,7 +70,8 @@ const styles = StyleSheet.create({
   deadline: {
     fontSize: 14,
     color: "gray",
-    flex: 1,
+    flex: 0.7,
+    // marginRight: 7,
   },
   completed: {
     textDecorationLine: "line-through",

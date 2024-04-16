@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -8,14 +8,30 @@ import {
 } from "react-native";
 import { useGlobalState } from "../store/StateContext";
 import TaskItem from "../components/TaskItem";
-import {
-  toggleComplete,
-  toggleFavorites,
-  deleteTask,
-} from "../utils/GlobalFunctions";
+// import { deleteTask } from "../utils/GlobalFunctions";
+import EditTaskModal from "../modals/EditTaskModal";
+import { useTask } from "../store/StateContext";
 
 function FavoritesScreen(props) {
-  const { tasks, setGlobalTasks } = useGlobalState();
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const { tasks, deleteTask, editTask, toggleFavorite, toggleComplete } =
+    useTask();
+
+  const openEditModal = (task) => {
+    setSelectedTask(task);
+    setEditModalVisible(true);
+  };
+
+  const saveEditedTask = (editedTask) => {
+    editTask(editedTask.id, editedTask);
+    setEditModalVisible(false);
+  };
+
+  const cancelEditModal = () => {
+    setEditModalVisible(false);
+  };
+
   return (
     <ImageBackground
       style={styles.background}
@@ -30,27 +46,23 @@ function FavoritesScreen(props) {
             item.favorites && (
               <TaskItem
                 task={item}
-                onDelete={() => deleteTask(item.id, tasks, setGlobalTasks)}
-                onToggleComplete={() =>
-                  toggleComplete(item.id, tasks, setGlobalTasks)
-                }
-                onToggleFavorites={() =>
-                  toggleFavorites(item.id, tasks, setGlobalTasks)
-                }
+                onDelete={() => deleteTask(item.id)}
+                onToggleComplete={() => toggleComplete(item.id)}
+                onToggleFavorites={() => toggleFavorite(item.id)}
                 onEdit={() => openEditModal(item)}
               />
             )
           }
           keyExtractor={(item) => item.id.toString()}
         />
-        {/* {selectedTask && (
+        {selectedTask && (
           <EditTaskModal
             visible={editModalVisible}
             task={selectedTask}
             onSave={saveEditedTask}
             onCancel={cancelEditModal}
           />
-        )} */}
+        )}
       </View>
     </ImageBackground>
   );
@@ -60,15 +72,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   heading: {
-    // justifyContent: "center",
-    // alignItems: "center",
     marginTop: 60,
     backgroundColor: "#cd5b45",
     color: "white",
     padding: 15,
     alignSelf: "flex-start",
     fontWeight: "bold",
-    // fontSize: 18,
     borderRadius: 10,
     alignSelf: "center",
   },

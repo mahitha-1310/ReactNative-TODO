@@ -13,9 +13,9 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 const EditTaskModal = ({ visible, task, onSave, onCancel }) => {
-  // console.log(typeof task.deadline);
   const [editedTaskName, setEditedTaskName] = useState(task.title);
   const [editedDeadline, setEditedDeadline] = useState(task.deadline);
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -81,7 +81,9 @@ const EditTaskModal = ({ visible, task, onSave, onCancel }) => {
                 placeholder="Choose Deadline (Optional)"
                 onChangeText={setEditedDeadline}
                 editable={false}
-                value={editedDeadline ? editedDeadline.toDateString() : ""}
+                value={
+                  editedDeadline ? new Date(editedDeadline).toDateString() : ""
+                }
               />
               <MaterialIcons name="event" size={24} color="black" />
             </TouchableOpacity>
@@ -92,7 +94,7 @@ const EditTaskModal = ({ visible, task, onSave, onCancel }) => {
             )}
             {showDatePicker && (
               <DateTimePicker
-                value={editedDeadline || new Date()}
+                value={new Date(editedDeadline) || new Date()}
                 mode="date"
                 display="default"
                 onChange={handleDateChange}
