@@ -1,0 +1,101 @@
+{
+  "users": [
+    {
+      "id": "kedar",
+      "password": "kedar",
+      "fullName": "Kedar",
+      "tasks": [
+        {
+          "id": "1713419973796",
+          "title": "dds",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419637177",
+          "title": "h",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419632830",
+          "title": "j",
+          "deadline": null,
+          "completed": true,
+          "favorites": false
+        },
+        {
+          "id": "1713419629045",
+          "title": "i",
+          "deadline": null,
+          "completed": true,
+          "favorites": false
+        },
+        {
+          "id": "1713419625798",
+          "title": "h",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419622539",
+          "title": "g",
+          "deadline": null,
+          "completed": true,
+          "favorites": false
+        },
+        {
+          "id": "1713419619312",
+          "title": "f",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419616562",
+          "title": "e",
+          "deadline": null,
+          "completed": true,
+          "favorites": false
+        },
+        {
+          "id": "1713419613679",
+          "title": "d",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419610479",
+          "title": "c",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419606728",
+          "title": "b",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        },
+        {
+          "id": "1713419602580",
+          "title": "a",
+          "deadline": null,
+          "completed": false,
+          "favorites": false
+        }
+      ]
+    },
+    {
+      "id": "aaa",
+      "password": "Asdfghjkl1234*",
+      "fullName": "aaa",
+      "tasks": []
+    }
+  ]
+}

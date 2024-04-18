@@ -3,9 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import SearchScreenModal from "../modals/SearchScreenModal";
+import { useTask } from "../store/StateContext";
 
-const Header = () => {
+const Header = ({ navigation }) => {
+  console.log("header", navigation);
   const [searchModalVisible, setSearchModalVisible] = useState(false);
+  const { fullName, logout } = useTask();
 
   const handleSearchPress = () => {
     setSearchModalVisible(true);
@@ -15,12 +18,21 @@ const Header = () => {
     setSearchModalVisible(false);
   };
 
+  const handleLogout = () => {
+    logout(navigation);
+  };
+
   return (
     <View style={styles.header}>
-      <Text style={styles.title}></Text>
-      <View style={styles.search}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Hi {fullName}</Text>
+      </View>
+      <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleSearchPress}>
           <MaterialIcons name="search" size={32} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleLogout}>
+          <MaterialIcons name="exit-to-app" size={32} color="white" />
         </TouchableOpacity>
       </View>
       {searchModalVisible && (
@@ -45,13 +57,21 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 20,
-    alignSelf: "flex-start",
+    fontWeight: "bold",
   },
-  search: {
+  headerContainer: {
+    flexDirection: "row",
     alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 4,
-    right: 5,
+    justifyContent: "space-around",
+    bottom: 10,
+    right: 15,
+    width: "25%",
+  },
+  titleContainer: {
+    alignSelf: "flex-start",
+    justifyContent: "center",
+    top: 20,
+    left: 20,
   },
 });
 

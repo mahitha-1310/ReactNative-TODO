@@ -7,6 +7,8 @@ import {
   Pressable,
   TextInput,
   FlatList,
+  ImageBackground,
+  ScrollView,
 } from "react-native";
 
 import TaskItem from "../components/TaskItem";
@@ -50,89 +52,61 @@ function SearchScreenModal({ visible, onCancel }) {
       visible={visible}
       onRequestClose={onCancel}
     >
-      <View style={styles.container}>
-        <Pressable style={styles.button} onPress={onCancel}>
-          <Text style={styles.buttonText}>GO BACK</Text>
-        </Pressable>
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            paddingHorizontal: 10,
-          }}
-          placeholder="Search tasks..."
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        {/* <FlatList
-            data={filteredTasks}
-            renderItem={({ item }) => <TaskItem task={item} />}
-            keyExtractor={(item) => item.id.toString()}
-            ListEmptyComponent={<Text>No tasks found</Text>}
-          /> */}
-        {/* <FlatList
+      <ImageBackground
+        style={styles.background}
+        source={require("../assets/background.jpg")}
+      >
+        <ScrollView
+          style={[styles.container, styles.overlay]}
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
+          <Pressable style={styles.button} onPress={onCancel}>
+            <Text style={styles.buttonText}>GO BACK</Text>
+          </Pressable>
+          <TextInput
+            style={styles.searchText}
+            placeholderTextColor="#d4d5d6"
+            placeholder="Search tasks..."
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+          <FlatList
+            style={styles.flatlist}
             data={filteredTasks}
             renderItem={({ item }) => (
               <TaskItem
                 task={item}
-                onDelete={() => handleDelete(item.id)}
-                onToggleComplete={() =>
-                  dispatch({ type: "TOGGLE_COMPLETE", payload: item.id })
-                }
-                onToggleFavorites={() =>
-                  dispatch({ type: "TOGGLE_FAVORITES", payload: item.id })
-                }
+                onDelete={() => deleteTask(item.id)}
+                onToggleComplete={() => toggleComplete(item.id)}
+                onToggleFavorites={() => toggleFavorite(item.id)}
                 onEdit={() => openEditModal(item)}
               />
             )}
             keyExtractor={(item) => item.id.toString()}
-            ListEmptyComponent={<Text>No tasks found</Text>}
-
-
-          /> */}
-
-        <FlatList
-          style={styles.flatlist}
-          data={filteredTasks}
-          renderItem={({ item }) => (
-            <TaskItem
-              task={item}
-              onDelete={() => deleteTask(item.id)}
-              onToggleComplete={() => toggleComplete(item.id)}
-              onToggleFavorites={() => toggleFavorite(item.id)}
-              onEdit={() => openEditModal(item)}
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+                <Text style={styles.emptyList}>No tasks found</Text>
+              </View>
+            }
+          />
+          {selectedTask && (
+            <EditTaskModal
+              visible={editModalVisible}
+              task={selectedTask}
+              onSave={saveEditedTask}
+              onCancel={cancelEditModal}
             />
           )}
-          keyExtractor={(item) => item.id.toString()}
-          ListEmptyComponent={<Text>No tasks found</Text>}
-        />
-        {selectedTask && (
-          <EditTaskModal
-            visible={editModalVisible}
-            task={selectedTask}
-            onSave={saveEditedTask}
-            onCancel={cancelEditModal}
-          />
-        )}
-      </View>
+        </ScrollView>
+      </ImageBackground>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  //   centeredView: {
-  //     flex: 1,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //   },
-  //   modalView: {
-  //     backgroundColor: "#fff",
-  //     padding: 20,
-  //     alignItems: "center",
-  //     height: "100%",
-  //     width: "100%",
-  //   },
+  background: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     margin: 20,
@@ -151,6 +125,31 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  searchText: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    backgroundColor: "#000",
+    margin: 20,
+    borderRadius: 5,
+    color: "#fff",
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "grey",
+  },
+  emptyList: {
+    fontSize: 16,
+    color: "black",
   },
 });
 

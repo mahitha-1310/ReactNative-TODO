@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
@@ -25,6 +26,8 @@ const EditTaskModal = ({ visible, task, onSave, onCancel }) => {
   }, [visible]);
 
   const handleSave = () => {
+    if (editedTaskName.trim() === "")
+      return Alert.alert("Error", "Task title can't be empty.");
     onSave({
       ...task,
       title: editedTaskName,

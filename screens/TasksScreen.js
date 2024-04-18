@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import TaskItem from "../components/TaskItem";
@@ -55,7 +55,10 @@ function TasksScreen(props) {
       style={styles.background}
       source={require("../assets/background.jpg")}
     >
-      <View style={[styles.container, styles.overlay]}>
+      <ScrollView
+        style={[styles.container, styles.overlay]}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <View>
           {/* {console.log(tasks)} */}
           {tasks.some((item) => !item.completed) && (
@@ -75,6 +78,13 @@ function TasksScreen(props) {
               )
             }
             keyExtractor={(item) => item.id.toString()}
+            ListEmptyComponent={
+              <View style={styles.emptyContainer}>
+                <Text style={styles.emptyList}>
+                  Click on [ + ] to add tasks
+                </Text>
+              </View>
+            }
           />
 
           {tasks.some((item) => item.completed) && (
@@ -106,7 +116,7 @@ function TasksScreen(props) {
           )}
           {/* <AddItem /> */}
         </View>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
@@ -126,6 +136,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderWidth: 1,
     borderColor: "#000",
+    // flexGrow: 1,
   },
   datecontainer: {
     flexDirection: "row",
@@ -158,6 +169,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 10,
   },
+  content: {
+    flexGrow: 1,
+    width: "100%",
+    paddingVertical: 20,
+  },
   buttonText: {
     padding: 10,
     color: "white",
@@ -167,6 +183,17 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "grey",
+  },
+  emptyList: {
+    fontSize: 16,
+    color: "black",
   },
 });
 

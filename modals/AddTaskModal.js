@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   Modal,
   Pressable,
@@ -25,7 +26,8 @@ function AddTaskModal({ visible, onSave, onCancel }) {
   };
 
   const addTask = () => {
-    if (taskTitle.trim() === "") return;
+    if (taskTitle.trim() === "")
+      return Alert.alert("Error", "Task title can't be empty.");
     const newTask = {
       id: String(Date.now()),
       title: taskTitle.trim(),

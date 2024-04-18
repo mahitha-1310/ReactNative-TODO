@@ -1,52 +1,114 @@
-// screens/LoginScreen.js
-import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  ImageBackground,
+  Pressable,
+} from "react-native";
+import { useTask } from "../store/StateContext";
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const { onLogin } = useTask();
   const handleLogin = () => {
-    console.log("Logging in with:", username);
+    if (!id.trim() || !password.trim()) {
+      Alert.alert("Error", "Please enter both username and password");
+      return;
+    }
+    onLogin(id, password, navigation, loginSuccess);
+  };
+
+  const loginSuccess = () => {
+    setId("");
+    setPassword("");
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Login Screen</Text>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <Button
-        title="Don't have an account? Register"
-        onPress={() => navigation.navigate("Register")}
-      />
-    </View>
+    <ImageBackground
+      style={styles.background}
+      source={require("../assets/background.jpg")}
+    >
+      <View style={[styles.container, styles.overlay]}>
+        <Text style={styles.heading}>LOGIN HERE</Text>
+        <TextInput
+          placeholder="Username"
+          value={id}
+          onChangeText={setId}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={styles.input}
+        />
+        <Pressable title="Login" onPress={handleLogin} style={styles.button}>
+          <Text style={styles.buttonText}>LOGIN</Text>
+        </Pressable>
+        <Pressable
+          title="Don't have an account? Register"
+          onPress={() => navigation.navigate("Register")}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>DON'T HAVE AN ACCOUNT? REGISTER</Text>
+        </Pressable>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    width: "80%",
+    width: "90%",
+    flexDirection: "row",
+    backgroundColor: "white",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#000",
+    borderRadius: 5,
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
     marginVertical: 10,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  heading: {
+    marginTop: 50,
+    backgroundColor: "rgba(0, 0, 0, 0.80)",
+    color: "white",
+    padding: 20,
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 18,
+    borderRadius: 50,
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "#cd5b45",
+    padding: 15,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
