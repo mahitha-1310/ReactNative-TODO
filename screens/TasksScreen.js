@@ -8,14 +8,13 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import TaskItem from "../components/TaskItem";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useTask } from "../store/StateContext";
-
+import { ScrollView } from "react-native-virtualized-view";
 import {
   toggleComplete,
   toggleFavorites,

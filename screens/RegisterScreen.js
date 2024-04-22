@@ -16,8 +16,8 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const { onRegister } = useTask();
   const handleRegister = () => {
-    if (!id.trim() || !password.trim()) {
-      Alert.alert("Error", "Please enter both username and password");
+    if (!id.trim() || !password.trim() || !fullName.trim()) {
+      Alert.alert("Error", "Please enter all details");
       return;
     }
     onRegister(id, password, fullName, navigation);

@@ -6,7 +6,6 @@ import SearchScreenModal from "../modals/SearchScreenModal";
 import { useTask } from "../store/StateContext";
 
 const Header = ({ navigation }) => {
-  console.log("header", navigation);
   const [searchModalVisible, setSearchModalVisible] = useState(false);
   const { fullName, logout } = useTask();
 
@@ -25,7 +24,7 @@ const Header = ({ navigation }) => {
   return (
     <View style={styles.header}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Hi {fullName}</Text>
+        <Text style={styles.title}>Hi {fullName},</Text>
       </View>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleSearchPress}>

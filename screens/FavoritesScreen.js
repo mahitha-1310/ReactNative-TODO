@@ -12,6 +12,7 @@ import TaskItem from "../components/TaskItem";
 // import { deleteTask } from "../utils/GlobalFunctions";
 import EditTaskModal from "../modals/EditTaskModal";
 import { useTask } from "../store/StateContext";
+// import { ScrollView } from "react-native-virtualized-view";
 
 function FavoritesScreen(props) {
   const [editModalVisible, setEditModalVisible] = useState(false);

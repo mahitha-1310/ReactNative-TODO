@@ -10,11 +10,10 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-
 import TaskItem from "../components/TaskItem";
 import EditTaskModal from "./EditTaskModal";
 import { useTask } from "../store/StateContext";
-
+// import { ScrollView } from "react-native-virtualized-view";
 function SearchScreenModal({ visible, onCancel }) {
   const [searchText, setSearchText] = useState("");
 
@@ -56,47 +55,50 @@ function SearchScreenModal({ visible, onCancel }) {
         style={styles.background}
         source={require("../assets/background.jpg")}
       >
-        <ScrollView
+        {/* <ScrollView
           style={[styles.container, styles.overlay]}
           contentContainerStyle={{ flexGrow: 1 }}
-        >
-          <Pressable style={styles.button} onPress={onCancel}>
-            <Text style={styles.buttonText}>GO BACK</Text>
-          </Pressable>
-          <TextInput
-            style={styles.searchText}
-            placeholderTextColor="#d4d5d6"
-            placeholder="Search tasks..."
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-          <FlatList
-            style={styles.flatlist}
-            data={filteredTasks}
-            renderItem={({ item }) => (
-              <TaskItem
-                task={item}
-                onDelete={() => deleteTask(item.id)}
-                onToggleComplete={() => toggleComplete(item.id)}
-                onToggleFavorites={() => toggleFavorite(item.id)}
-                onEdit={() => openEditModal(item)}
+        > */}
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.overlay}>
+            <Pressable style={styles.button} onPress={onCancel}>
+              <Text style={styles.buttonText}>GO BACK</Text>
+            </Pressable>
+            <TextInput
+              style={styles.searchText}
+              placeholderTextColor="#d4d5d6"
+              placeholder="Search tasks..."
+              value={searchText}
+              onChangeText={setSearchText}
+            />
+            <FlatList
+              style={styles.flatlist}
+              data={filteredTasks}
+              renderItem={({ item }) => (
+                <TaskItem
+                  task={item}
+                  onDelete={() => deleteTask(item.id)}
+                  onToggleComplete={() => toggleComplete(item.id)}
+                  onToggleFavorites={() => toggleFavorite(item.id)}
+                  onEdit={() => openEditModal(item)}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              ListEmptyComponent={
+                <View style={styles.emptyContainer}>
+                  <Text style={styles.emptyList}>No tasks found</Text>
+                </View>
+              }
+            />
+            {selectedTask && (
+              <EditTaskModal
+                visible={editModalVisible}
+                task={selectedTask}
+                onSave={saveEditedTask}
+                onCancel={cancelEditModal}
               />
             )}
-            keyExtractor={(item) => item.id.toString()}
-            ListEmptyComponent={
-              <View style={styles.emptyContainer}>
-                <Text style={styles.emptyList}>No tasks found</Text>
-              </View>
-            }
-          />
-          {selectedTask && (
-            <EditTaskModal
-              visible={editModalVisible}
-              task={selectedTask}
-              onSave={saveEditedTask}
-              onCancel={cancelEditModal}
-            />
-          )}
+          </View>
         </ScrollView>
       </ImageBackground>
     </Modal>

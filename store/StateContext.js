@@ -210,7 +210,7 @@ export const StateProvider = ({ children }) => {
   };
 
   const onLogin = async (id, password, navigation, loginSuccess) => {
-    console.log("login", navigation);
+    // console.log("login", navigation);
     try {
       const response = await fetch(
         `${BASE_URL}/users?id=${id}&password=${password}`
@@ -234,9 +234,16 @@ export const StateProvider = ({ children }) => {
   };
 
   const logout = (navigation) => {
-    console.log("navi", navigation);
-    navigation.navigate("Login");
-    dispatch({ type: "LOG_OUT" });
+    Alert.alert("Log Out", "Are you sure you want to log out?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Logout",
+        onPress: () => {
+          navigation.navigate("Login");
+          dispatch({ type: "LOG_OUT" });
+        },
+      },
+    ]);
   };
 
   return (

@@ -11,6 +11,9 @@ import TasksScreen from "./screens/TasksScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import SnapshotTest from "./TestFiles/SnapshotTest";
+import FunctionTest from "./TestFiles/FunctionTest";
+import GroceryShoppingList from "./TestFiles/GroceryShoppingList";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -48,7 +51,7 @@ const TabNavigator = () => {
 };
 
 const HomeScreen = ({ navigation }) => {
-  console.log("home", navigation);
+  // console.log("home", navigation);
   return (
     <View style={{ flex: 1 }}>
       <Header navigation={navigation} />
