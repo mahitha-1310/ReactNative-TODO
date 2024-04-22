@@ -5,14 +5,13 @@ import {
   FlatList,
   StyleSheet,
   ImageBackground,
-  ScrollView,
 } from "react-native";
 import { useGlobalState } from "../store/StateContext";
 import TaskItem from "../components/TaskItem";
 // import { deleteTask } from "../utils/GlobalFunctions";
 import EditTaskModal from "../modals/EditTaskModal";
 import { useTask } from "../store/StateContext";
-// import { ScrollView } from "react-native-virtualized-view";
+import { ScrollView } from "react-native-virtualized-view";
 
 function FavoritesScreen(props) {
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -42,37 +41,41 @@ function FavoritesScreen(props) {
       style={styles.background}
       source={require("../assets/background.jpg")}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.overlay}>
-          <Text style={styles.heading}>FAVORITE TASKS</Text>
-          <FlatList
-            style={styles.flatlist}
-            data={filteredTasks}
-            renderItem={({ item }) => (
-              <TaskItem
-                task={item}
-                onDelete={() => deleteTask(item.id)}
-                onToggleComplete={() => toggleComplete(item.id)}
-                onToggleFavorites={() => toggleFavorite(item.id)}
-                onEdit={() => openEditModal(item)}
-              />
-            )}
-            keyExtractor={(item) => item.id.toString()}
-            ListEmptyComponent={
-              <View style={styles.emptyContainer}>
-                <Text style={styles.emptyList}>No favorite tasks found</Text>
-              </View>
-            }
-          />
-          {selectedTask && (
-            <EditTaskModal
-              visible={editModalVisible}
-              task={selectedTask}
-              onSave={saveEditedTask}
-              onCancel={cancelEditModal}
+      {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.overlay}> */}
+      <ScrollView
+        style={[styles.container, styles.overlay]}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <Text style={styles.heading}>FAVORITE TASKS</Text>
+        <FlatList
+          style={styles.flatlist}
+          data={filteredTasks}
+          renderItem={({ item }) => (
+            <TaskItem
+              task={item}
+              onDelete={() => deleteTask(item.id)}
+              onToggleComplete={() => toggleComplete(item.id)}
+              onToggleFavorites={() => toggleFavorite(item.id)}
+              onEdit={() => openEditModal(item)}
             />
           )}
-        </View>
+          keyExtractor={(item) => item.id.toString()}
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyList}>No favorite tasks found</Text>
+            </View>
+          }
+        />
+        {selectedTask && (
+          <EditTaskModal
+            visible={editModalVisible}
+            task={selectedTask}
+            onSave={saveEditedTask}
+            onCancel={cancelEditModal}
+          />
+        )}
+        {/* </View> */}
       </ScrollView>
     </ImageBackground>
   );
