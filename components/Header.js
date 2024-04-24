@@ -27,7 +27,7 @@ const Header = ({ navigation }) => {
         <Text style={styles.title}>Hi {fullName},</Text>
       </View>
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={handleSearchPress}>
+        <TouchableOpacity onPress={handleSearchPress} testID="searchButton">
           <MaterialIcons name="search" size={32} color="white" />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout}>

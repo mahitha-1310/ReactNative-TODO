@@ -1,6 +1,13 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useRef,
+} from "react";
 import axios from "axios";
 import { Alert } from "react-native";
+import { Animated } from "react-native";
 
 const StateContext = createContext();
 
@@ -58,6 +65,15 @@ const stateReducer = (state, action) => {
 
 export const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
+  const slideAnim = useRef(new Animated.Value(0)).current;
+
+  const slideAnimation = (toValue) => {
+    Animated.timing(slideAnim, {
+      toValue,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const addTask = async (newTask) => {
     try {
@@ -130,30 +146,17 @@ export const StateProvider = ({ children }) => {
       if (task) {
         task.completed = !task.completed;
         await axios.put(`${BASE_URL}/users/${user.id}`, user);
-        console.log(task);
+
         dispatch({
           type: "EDIT_TASK",
           payload: { id: taskId, updatedTask: task },
         });
+        slideAnimation(task.completed ? 1 : 0);
       } else {
         console.error("Task not found");
       }
     } catch (error) {
       console.error("Error toggling task completion status:", error.message);
-    }
-  };
-
-  const toggleFavorit = async (taskId) => {
-    try {
-      const taskToUpdate = state.tasks.find((task) => task.id === taskId);
-      const updatedTask = {
-        ...taskToUpdate,
-        favorites: !taskToUpdate.favorites,
-      };
-      await axios.put(`${BASE_URL}/tasks/${taskId}`, updatedTask);
-      dispatch({ type: "EDIT_TASK", payload: { id: taskId, updatedTask } });
-    } catch (error) {
-      console.error("Error toggling favorite:", error);
     }
   };
 

@@ -17,12 +17,11 @@ const TaskItem = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onToggleComplete} style={styles.icon}>
-        {/* {console.log(task.completed)} */}
-        <Icon
-          name="check-circle-o"
-          size={20}
-          color={task.completed ? "green" : "black"}
-        />
+        {task.completed ? (
+          <Icon name="check-circle-o" size={20} color="green" />
+        ) : (
+          <Icon name="circle-o" size={20} color="black" />
+        )}
       </TouchableOpacity>
 
       <Text style={[styles.title, task.completed && styles.completed]}>

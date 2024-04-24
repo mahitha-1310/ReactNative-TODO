@@ -52,6 +52,7 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>LOGIN</Text>
         </Pressable>
         <Pressable
+          testID="Register"
           title="Don't have an account? Register"
           onPress={() => navigation.navigate("Register")}
           style={styles.button}

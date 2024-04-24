@@ -1,25 +1,424 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test Snapshot 1`] = `
+exports[`State Provider snapshot 1`] = `
 <View
   style={
     {
-      "alignItems": "center",
       "flex": 1,
-      "flexDirection": "row",
-      "justifyContent": "center",
     }
   }
 >
-  <Text
+  <RNCSafeAreaProvider
+    onInsetsChange={[Function]}
     style={
-      {
-        "color": "black",
-        "fontWeight": "bold",
-      }
+      [
+        {
+          "flex": 1,
+        },
+        undefined,
+      ]
     }
   >
-    Hiiiiiiiii
-  </Text>
+    <View
+      style={
+        [
+          {
+            "backgroundColor": "rgb(242, 242, 242)",
+            "flex": 1,
+          },
+          undefined,
+        ]
+      }
+    >
+      <RNSScreenContainer
+        onLayout={[Function]}
+        style={
+          {
+            "flex": 1,
+          }
+        }
+      >
+        <RNSModalScreen
+          activityState={2}
+          collapsable={false}
+          gestureResponseDistance={
+            {
+              "bottom": -1,
+              "end": -1,
+              "start": -1,
+              "top": -1,
+            }
+          }
+          onGestureCancel={[Function]}
+          pointerEvents="box-none"
+          sheetAllowedDetents="large"
+          sheetCornerRadius={-1}
+          sheetExpandsWhenScrolledToEdge={true}
+          sheetGrabberVisible={false}
+          sheetLargestUndimmedDetent="all"
+          style={
+            {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        >
+          <View
+            collapsable={false}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          />
+          <View
+            accessibilityElementsHidden={false}
+            closing={false}
+            collapsable={false}
+            gestureVelocityImpact={0.3}
+            importantForAccessibility="auto"
+            onClose={[Function]}
+            onGestureBegin={[Function]}
+            onGestureCanceled={[Function]}
+            onGestureEnd={[Function]}
+            onOpen={[Function]}
+            onTransition={[Function]}
+            pointerEvents="box-none"
+            style={
+              [
+                {
+                  "display": "flex",
+                  "overflow": undefined,
+                },
+                {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                },
+              ]
+            }
+            transitionSpec={
+              {
+                "close": {
+                  "animation": "spring",
+                  "config": {
+                    "damping": 500,
+                    "mass": 3,
+                    "overshootClamping": true,
+                    "restDisplacementThreshold": 10,
+                    "restSpeedThreshold": 10,
+                    "stiffness": 1000,
+                  },
+                },
+                "open": {
+                  "animation": "spring",
+                  "config": {
+                    "damping": 500,
+                    "mass": 3,
+                    "overshootClamping": true,
+                    "restDisplacementThreshold": 10,
+                    "restSpeedThreshold": 10,
+                    "stiffness": 1000,
+                  },
+                },
+              }
+            }
+          >
+            <View
+              collapsable={false}
+              pointerEvents="box-none"
+              style={
+                {
+                  "flex": 1,
+                  "marginTop": 0,
+                }
+              }
+            >
+              <View
+                collapsable={false}
+                handlerTag={1}
+                handlerType="PanGestureHandler"
+                needsOffscreenAlphaCompositing={false}
+                onGestureHandlerEvent={[Function]}
+                onGestureHandlerStateChange={[Function]}
+                style={
+                  {
+                    "flex": 1,
+                    "transform": [
+                      {
+                        "translateX": 0,
+                      },
+                    ],
+                  }
+                }
+              >
+                <View
+                  pointerEvents="box-none"
+                  style={
+                    [
+                      {
+                        "flex": 1,
+                        "overflow": "hidden",
+                      },
+                      [
+                        {
+                          "backgroundColor": "rgb(242, 242, 242)",
+                        },
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      {
+                        "flex": 1,
+                        "flexDirection": "column-reverse",
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        {
+                          "flex": 1,
+                        }
+                      }
+                    >
+                      <View
+                        accessibilityIgnoresInvertColors={true}
+                        style={
+                          {
+                            "flex": 1,
+                          }
+                        }
+                      >
+                        <Image
+                          source={1}
+                          style={
+                            [
+                              {
+                                "bottom": 0,
+                                "left": 0,
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              {
+                                "height": undefined,
+                                "width": undefined,
+                              },
+                              undefined,
+                            ]
+                          }
+                        />
+                        <View
+                          style={
+                            [
+                              {
+                                "alignItems": "center",
+                                "flex": 1,
+                                "justifyContent": "center",
+                              },
+                              {
+                                "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                                "bottom": 0,
+                                "left": 0,
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                            ]
+                          }
+                        >
+                          <Text
+                            style={
+                              {
+                                "alignSelf": "center",
+                                "backgroundColor": "rgba(0, 0, 0, 0.80)",
+                                "borderRadius": 50,
+                                "color": "white",
+                                "fontSize": 18,
+                                "fontWeight": "bold",
+                                "marginTop": 50,
+                                "padding": 20,
+                              }
+                            }
+                          >
+                            LOGIN HERE
+                          </Text>
+                          <TextInput
+                            onChangeText={[Function]}
+                            placeholder="Username"
+                            style={
+                              {
+                                "alignItems": "center",
+                                "backgroundColor": "white",
+                                "borderColor": "#000",
+                                "borderRadius": 5,
+                                "borderWidth": 1,
+                                "flexDirection": "row",
+                                "justifyContent": "space-between",
+                                "marginVertical": 10,
+                                "padding": 10,
+                                "width": "90%",
+                              }
+                            }
+                            value=""
+                          />
+                          <TextInput
+                            onChangeText={[Function]}
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            style={
+                              {
+                                "alignItems": "center",
+                                "backgroundColor": "white",
+                                "borderColor": "#000",
+                                "borderRadius": 5,
+                                "borderWidth": 1,
+                                "flexDirection": "row",
+                                "justifyContent": "space-between",
+                                "marginVertical": 10,
+                                "padding": 10,
+                                "width": "90%",
+                              }
+                            }
+                            value=""
+                          />
+                          <View
+                            accessibilityState={
+                              {
+                                "busy": undefined,
+                                "checked": undefined,
+                                "disabled": undefined,
+                                "expanded": undefined,
+                                "selected": undefined,
+                              }
+                            }
+                            accessibilityValue={
+                              {
+                                "max": undefined,
+                                "min": undefined,
+                                "now": undefined,
+                                "text": undefined,
+                              }
+                            }
+                            accessible={true}
+                            collapsable={false}
+                            focusable={true}
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onResponderGrant={[Function]}
+                            onResponderMove={[Function]}
+                            onResponderRelease={[Function]}
+                            onResponderTerminate={[Function]}
+                            onResponderTerminationRequest={[Function]}
+                            onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "alignSelf": "center",
+                                "backgroundColor": "#cd5b45",
+                                "borderRadius": 10,
+                                "marginTop": 20,
+                                "padding": 15,
+                              }
+                            }
+                            title="Login"
+                          >
+                            <Text
+                              style={
+                                {
+                                  "color": "white",
+                                  "fontWeight": "bold",
+                                }
+                              }
+                            >
+                              LOGIN
+                            </Text>
+                          </View>
+                          <View
+                            accessibilityState={
+                              {
+                                "busy": undefined,
+                                "checked": undefined,
+                                "disabled": undefined,
+                                "expanded": undefined,
+                                "selected": undefined,
+                              }
+                            }
+                            accessibilityValue={
+                              {
+                                "max": undefined,
+                                "min": undefined,
+                                "now": undefined,
+                                "text": undefined,
+                              }
+                            }
+                            accessible={true}
+                            collapsable={false}
+                            focusable={true}
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onResponderGrant={[Function]}
+                            onResponderMove={[Function]}
+                            onResponderRelease={[Function]}
+                            onResponderTerminate={[Function]}
+                            onResponderTerminationRequest={[Function]}
+                            onStartShouldSetResponder={[Function]}
+                            style={
+                              {
+                                "alignSelf": "center",
+                                "backgroundColor": "#cd5b45",
+                                "borderRadius": 10,
+                                "marginTop": 20,
+                                "padding": 15,
+                              }
+                            }
+                            title="Don't have an account? Register"
+                          >
+                            <Text
+                              style={
+                                {
+                                  "color": "white",
+                                  "fontWeight": "bold",
+                                }
+                              }
+                            >
+                              DON'T HAVE AN ACCOUNT? REGISTER
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RNSModalScreen>
+      </RNSScreenContainer>
+      <View
+        collapsable={false}
+        pointerEvents="box-none"
+        style={
+          {
+            "height": 44,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "zIndex": 1,
+          }
+        }
+      />
+    </View>
+  </RNCSafeAreaProvider>
 </View>
 `;

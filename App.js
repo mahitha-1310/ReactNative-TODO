@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Animated } from "react-native";
 import { StateProvider } from "./store/StateContext";
 import AddItem from "./components/AddTask";
 import Header from "./components/Header";
@@ -11,9 +11,6 @@ import TasksScreen from "./screens/TasksScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import SnapshotTest from "./TestFiles/SnapshotTest";
-import FunctionTest from "./TestFiles/FunctionTest";
-import GroceryShoppingList from "./TestFiles/GroceryShoppingList";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -65,7 +62,26 @@ const App = () => {
   return (
     <StateProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerShown: false,
+            cardStyleInterpolator: ({ current, layouts }) => {
+              return {
+                cardStyle: {
+                  transform: [
+                    {
+                      translateX: current.progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [layouts.screen.width, 0],
+                      }),
+                    },
+                  ],
+                },
+              };
+            },
+          }}
+        >
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen
@@ -82,6 +98,9 @@ const App = () => {
 const styles = StyleSheet.create({
   text: {
     color: "#FAEEEC",
+  },
+  container: {
+    flex: 1,
   },
 });
 

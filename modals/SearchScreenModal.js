@@ -66,6 +66,7 @@ function SearchScreenModal({ visible, onCancel }) {
             <Text style={styles.buttonText}>GO BACK</Text>
           </Pressable>
           <TextInput
+            testID="search"
             style={styles.searchText}
             placeholderTextColor="#d4d5d6"
             placeholder="Search tasks..."
