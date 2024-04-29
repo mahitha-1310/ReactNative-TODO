@@ -381,6 +381,7 @@ exports[`State Provider snapshot 1`] = `
                                 "padding": 15,
                               }
                             }
+                            testID="Register"
                             title="Don't have an account? Register"
                           >
                             <Text

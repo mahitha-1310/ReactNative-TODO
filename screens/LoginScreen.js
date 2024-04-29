@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
       Alert.alert("Error", "Please enter both username and password");
       return;
     }
-    onLogin(id, password, navigation, loginSuccess);
+    onLogin(id.trim(), password.trim(), navigation, loginSuccess);
   };
 
   const loginSuccess = () => {

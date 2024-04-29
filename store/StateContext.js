@@ -188,13 +188,13 @@ export const StateProvider = ({ children }) => {
       const check = await fetch(`${BASE_URL}/users?id=${id}`);
       const checkData = await check.json();
       const passwordPattern =
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@$%^&*]).{8,}$/;
       if (checkData.length != 0) {
         Alert.alert("Error", "Username already exists.");
       } else if (!passwordPattern.test(password)) {
         Alert.alert(
           "Error",
-          "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)"
+          "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character (!@$%^&*)"
         );
       } else {
         const response = await fetch(`${BASE_URL}/users`, {
@@ -271,3 +271,303 @@ export const StateProvider = ({ children }) => {
 };
 
 export const useTask = () => useContext(StateContext);
+
+// import React, {
+//   createContext,
+//   useContext,
+//   useReducer,
+//   useEffect,
+//   useRef,
+// } from "react";
+// import axios from "axios";
+// import { Alert } from "react-native";
+// import { Animated } from "react-native";
+
+// const StateContext = createContext();
+
+// const initialState = {
+//   username: "",
+//   tasks: [],
+//   fullName: "",
+// };
+
+// const baseURL = "http://my-json-server.typicode.com/mahitha-1310/api-tasks";
+
+// const stateReducer = (state, action) => {
+//   switch (action.type) {
+//     case "LOGIN":
+//       // console.log("FullName:", action.payload.fullName);
+//       return {
+//         ...state,
+//         tasks: action.payload.tasks,
+//         username: action.payload.id,
+//         fullName: action.payload.fullName,
+//       };
+//     case "FETCH_TASKS":
+//       return {
+//         ...state,
+//         tasks: action.payload,
+//       };
+//     case "ADD_TASK":
+//       // console.log(state);
+//       return {
+//         ...state,
+//         tasks: [action.payload, ...state.tasks],
+//       };
+//     case "EDIT_TASK":
+//       return {
+//         ...state,
+//         tasks: state.tasks.map((task) =>
+//           task.id === action.payload.id ? action.payload.updatedTask : task
+//         ),
+//       };
+//     case "DELETE_TASK":
+//       return {
+//         ...state,
+//         tasks: state.tasks.filter((task) => task.id !== action.payload),
+//       };
+//     case "LOG_OUT":
+//       return {
+//         ...state,
+//         username: "",
+//         tasks: [],
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+// export const StateProvider = ({ children }) => {
+//   const [state, dispatch] = useReducer(stateReducer, initialState);
+//   const slideAnim = useRef(new Animated.Value(0)).current;
+
+//   const slideAnimation = (toValue) => {
+//     Animated.timing(slideAnim, {
+//       toValue,
+//       duration: 500,
+//       useNativeDriver: true,
+//     }).start();
+//   };
+
+//   const addTas = async (newTask) => {
+//     try {
+//       const response = await axios.get(`${baseURL}/users/${state.username}`);
+//       const user = response.data;
+
+//       const updatedTasks = [newTask, ...user.tasks];
+//       const updatedUser = { ...user, tasks: updatedTasks };
+//       axios
+//         .put(`${baseURL}/users/${user.id}`, updatedUser)
+//         .then((response) => {
+//           dispatch({ type: "ADD_TASK", payload: newTask });
+//         })
+//         .catch((error) => {
+//           console.error("Error adding new task:", error);
+//         });
+//     } catch (error) {
+//       console.error("Error fetching tasks:", error.message);
+//     }
+//   };
+
+//   const addTask = async (newTask) => {
+//     try {
+//       // Fetch user data
+//       const response = await axios.get(`${baseURL}/users/${state.username}`); // Assuming state.username contains the user ID
+//       const user = response.data;
+
+//       // Update tasks
+//       const updatedTasks = [newTask, ...user.tasks];
+//       const updatedUser = { ...user, tasks: updatedTasks };
+
+//       // Update user data
+//       await axios.put(`${baseURL}/users/${user.id}`, updatedUser);
+
+//       // Dispatch action after successful update
+//       dispatch({ type: "ADD_TASK", payload: newTask });
+//     } catch (error) {
+//       console.error("Error adding new task:", error);
+//     }
+//   };
+
+//   const editTask = async (taskId, updatedTask) => {
+//     try {
+//       const response = await axios.get(`${baseURL}/users/${state.username}`);
+//       const user = response.data;
+//       const taskIndex = user.tasks.findIndex((task) => task.id === taskId);
+
+//       if (taskIndex !== -1) {
+//         user.tasks[taskIndex] = updatedTask;
+//         await axios.put(`${baseURL}/users/${user.id}`, user);
+//         dispatch({ type: "EDIT_TASK", payload: { id: taskId, updatedTask } });
+//       } else {
+//         console.error("Task not found");
+//       }
+//     } catch (error) {
+//       console.error("Error editing task:", error.message);
+//     }
+//   };
+
+//   const deleteTask = (taskId) => {
+//     Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
+//       { text: "Cancel", style: "cancel" },
+//       {
+//         text: "Delete",
+//         onPress: () => confirmDeleteTask(taskId),
+//       },
+//     ]);
+//   };
+
+//   const confirmDeleteTask = async (taskId) => {
+//     try {
+//       const response = await axios.get(`${baseURL}/users/${state.username}`);
+//       const user = response.data;
+//       const updatedTasks = user.tasks.filter((task) => task.id !== taskId);
+//       user.tasks = updatedTasks;
+//       await axios.put(`${baseURL}/users/${user.id}`, user);
+//       dispatch({ type: "DELETE_TASK", payload: taskId });
+//       console.log("Task deleted successfully");
+//     } catch (error) {
+//       console.error("Error deleting task:", error.message);
+//     }
+//   };
+
+//   const toggleComplete = async (taskId) => {
+//     try {
+//       const response = await axios.get(`${baseURL}/users/${state.username}`);
+//       const user = response.data;
+//       const task = user.tasks.find((task) => task.id === taskId);
+
+//       if (task) {
+//         task.completed = !task.completed;
+//         await axios.put(`${baseURL}/users/${user.id}`, user);
+
+//         dispatch({
+//           type: "EDIT_TASK",
+//           payload: { id: taskId, updatedTask: task },
+//         });
+//         slideAnimation(task.completed ? 1 : 0);
+//       } else {
+//         console.error("Task not found");
+//       }
+//     } catch (error) {
+//       console.error("Error toggling task completion status:", error.message);
+//     }
+//   };
+
+//   const toggleFavorite = async (taskId) => {
+//     try {
+//       const response = await axios.get(`${baseURL}/users/${state.username}`);
+//       const user = response.data;
+//       const task = user.tasks.find((task) => task.id === taskId);
+
+//       if (task) {
+//         task.favorites = !task.favorites;
+//         await axios.put(`${baseURL}/users/${user.id}`, user);
+//         console.log(task);
+//         dispatch({
+//           type: "EDIT_TASK",
+//           payload: { id: taskId, updatedTask: task },
+//         });
+//         // console.log("Task favorite status toggled successfully");
+//       } else {
+//         console.error("Task not found");
+//       }
+//     } catch (error) {
+//       console.error("Error toggling task completion status:", error.message);
+//     }
+//   };
+
+//   const onRegister = async (id, password, fullName, navigation) => {
+//     try {
+//       const check = await fetch(`${baseURL}/users?id=${id}`);
+//       const checkData = await check.json();
+//       const passwordPattern =
+//         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@$%^&*]).{8,}$/;
+//       if (checkData.length != 0) {
+//         Alert.alert("Error", "Username already exists.");
+//       } else if (!passwordPattern.test(password)) {
+//         Alert.alert(
+//           "Error",
+//           "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character (!@$%^&*)"
+//         );
+//       } else {
+//         const response = await fetch(`${baseURL}/users`, {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({ id, password, fullName, tasks: [] }),
+//         });
+//         const data = await response.json();
+//         navigation.navigate("Login");
+//       }
+//     } catch (error) {
+//       console.error("Registration failed:", error);
+//     }
+//   };
+
+//   const onLogin = async (id, password, navigation, loginSuccess) => {
+//     // console.log("login", navigation);
+//     try {
+//       const response = await fetch(
+//         `${baseURL}/users?id=${id}&password=${password}`
+//       );
+//       const data = await response.json();
+//       // const response = await fetch(
+//       //   // "http://10.0.2.2:3000/users?id=kedar&password=kedar"
+//       //   "http://my-json-server.typicode.com/mahitha-1310/api-tasks/users?id=kedar&password=kedar"
+//       // );
+//       // const data = await response.json();
+
+//       if (data.length === 0) {
+//         Alert.alert("Error", "Enter correct credentials");
+//       } else {
+//         const user = data[0];
+
+//         dispatch({
+//           type: "LOGIN",
+//           payload: { id, tasks: user.tasks, fullName: user.fullName },
+//         });
+//         navigation.navigate("Home");
+//         loginSuccess();
+//       }
+//     } catch (error) {
+//       console.error("Login failed:", error);
+//     }
+//   };
+
+//   const logout = (navigation) => {
+//     Alert.alert("Log Out", "Are you sure you want to log out?", [
+//       { text: "Cancel", style: "cancel" },
+//       {
+//         text: "Logout",
+//         onPress: () => {
+//           navigation.navigate("Login");
+//           dispatch({ type: "LOG_OUT" });
+//         },
+//       },
+//     ]);
+//   };
+
+//   return (
+//     <StateContext.Provider
+//       value={{
+//         tasks: state.tasks,
+//         username: state.username,
+//         fullName: state.fullName,
+//         addTask,
+//         editTask,
+//         deleteTask,
+//         toggleComplete,
+//         toggleFavorite,
+//         onRegister,
+//         onLogin,
+//         logout,
+//       }}
+//     >
+//       {children}
+//     </StateContext.Provider>
+//   );
+// };
+
+// export const useTask = () => useContext(StateContext);

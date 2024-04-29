@@ -1,8 +1,10 @@
+// import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
+// import { Text, StyleSheet, View } from "react-native";
 import { Text, StyleSheet, View, Animated } from "react-native";
 import { StateProvider } from "./store/StateContext";
 import AddItem from "./components/AddTask";
@@ -60,6 +62,7 @@ const HomeScreen = ({ navigation }) => {
 
 const App = () => {
   return (
+    // <Text>Hello</Text>
     <StateProvider>
       <NavigationContainer>
         <Stack.Navigator

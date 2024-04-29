@@ -20,7 +20,11 @@ const RegisterScreen = ({ navigation }) => {
       Alert.alert("Error", "Please enter all details");
       return;
     }
-    onRegister(id, password, fullName, navigation);
+    if (fullName.trim().length > 10) {
+      Alert.alert("Error", "Name can contain only 15 character");
+      return;
+    }
+    onRegister(id.trim(), password.trim(), fullName.trim(), navigation);
   };
 
   return (
